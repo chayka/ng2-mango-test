@@ -1,11 +1,9 @@
 <div class="empty-dataset" *ngIf="!data">No source data provided</div>
-<table class="data-table" *ngIf="data" rules="none">
+<table class="data-table" *ngIf="data" rules="none" cellspacing="0">
     <tr *ngIf=getFields().length>
         <th *ngFor="let field of getFields()"
             (click)="setOrder(field, field === orderBy ? ! orderAsc : true )"
             [ngClass]="{orderby: field === orderBy, asc: orderAsc, desc: !orderAsc, number: fields[field] === 'number'}">{{field}}
-            <span *ngIf="field === orderBy && orderAsc">&darr;</span>
-            <span *ngIf="field === orderBy && !orderAsc">&uarr;</span>
         </th>
     </tr>
     <tr *ngFor="let row of getData()">
