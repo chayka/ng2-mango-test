@@ -43,13 +43,13 @@ describe('DataTableComponent', () => {
   });
 
   it('should show empty data set message', () => {
-    let div = compiled.querySelector('.empty-dataset');
+    const div = compiled.querySelector('.empty-dataset');
     expect(div).toBeTruthy('empty dataset message shown');
     expect(div.innerText).toContain('No source data provided');
   });
 
   it('should request data when load() issued', () => {
-    let div = compiled.querySelector('.empty-dataset');
+    const div = compiled.querySelector('.empty-dataset');
     expect(div).toBeTruthy('empty dataset message shown');
     expect(div.innerText).toContain('No source data provided');
     component.url = '/api/data.json';
@@ -79,7 +79,7 @@ describe('DataTableComponent', () => {
   }));
 
   it('should set data', () => {
-    let data = component.setData([
+    const data = component.setData([
       {id: 0, name: 'CCC'},
       {id: 1, name: 'AAA'},
       {id: 2, name: 'BBB'},
@@ -98,14 +98,15 @@ describe('DataTableComponent', () => {
       {id: 2, name: 'BBB'},
     ]);
 
-    let {orderBy, orderAsc, fields} = component;
+    let {orderBy, orderAsc} = component;
+    const {fields} = component;
     let data = component.getData();
 
-    function expectSorted(data, orderBy, orderAsc, fields){
+    function expectSorted() {
       let prev;
       data.forEach(row => {
-        if(prev !== undefined){
-          switch(fields[orderBy]){
+        if (prev !== undefined) {
+          switch (fields[orderBy]) {
             case 'string':
               prev = prev || '';
               row[orderBy] = row[orderBy] || '';
@@ -115,20 +116,20 @@ describe('DataTableComponent', () => {
               row[orderBy] = row[orderBy] || 0;
               break;
           }
-          if(orderAsc){
+          if (orderAsc) {
             expect(row[orderBy]).toBeGreaterThanOrEqual(prev);
-          }else{
+          } else {
             expect(row[orderBy]).toBeLessThanOrEqual(prev);
           }
         }
         prev = row[orderBy];
-      })
+      });
     }
 
-    expectSorted(data, orderBy, orderAsc, fields);
+    expectSorted();
 
     fixture.detectChanges();
-    let th = fixture.debugElement.queryAll(By.css('th'))
+    const th = fixture.debugElement.queryAll(By.css('th'))
         .find(cell => cell.nativeElement.innerText.match(/name/i));
 
     expect(th).toBeTruthy('th name found');
@@ -141,7 +142,9 @@ describe('DataTableComponent', () => {
 
     data = component.getData();
 
-    expectSorted(data, component.orderBy, component.orderAsc, fields);
+    orderBy = component.orderBy;
+    orderAsc = component.orderAsc;
+    expectSorted();
 
     th.triggerEventHandler('click', null);
     fixture.detectChanges();
@@ -150,7 +153,9 @@ describe('DataTableComponent', () => {
 
     data = component.getData();
 
-    expectSorted(data, component.orderBy, component.orderAsc, fields);
+    orderBy = component.orderBy;
+    orderAsc = component.orderAsc;
+    expectSorted();
 
   });
 

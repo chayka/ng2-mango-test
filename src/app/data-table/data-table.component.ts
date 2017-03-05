@@ -113,7 +113,7 @@ export class DataTableComponent implements OnInit {
      * @return {any[]}
      */
     getData(): any[] {
-        let query = (this.query || '').toLowerCase();
+        const query = (this.query || '').toLowerCase();
         return this.cache = (this.data || [])
             /**
              * Filter searched data
@@ -131,7 +131,7 @@ export class DataTableComponent implements OnInit {
             .sort((a: any, b: any) => {
                 let va = a[this.orderBy];
                 let vb = b[this.orderBy];
-                switch (this.fields[this.orderBy]){
+                switch (this.fields[this.orderBy]) {
                     case 'number':
                         va = va || 0;
                         vb = vb || 0;

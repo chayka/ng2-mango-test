@@ -7,9 +7,9 @@ import { DataTableComponent } from './data-table/data-table.component';
     styleUrls: ['./app.component.less']
 })
 export class AppComponent {
-    title: string = 'app works!';
-    url: string = '/api/data.json';
-    query: string = '';
+    title = 'app works!';
+    url = '/api/data.json';
+    query = '';
 
     @ViewChild(DataTableComponent)
     table: DataTableComponent;
