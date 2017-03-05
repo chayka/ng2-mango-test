@@ -1,0 +1,15 @@
+<h1>
+    {{title}}
+</h1>
+
+<div class="form-field">
+    <label>Data url:</label>
+    <input type="url" [(ngModel)]="url" (change)="loadData()"/>
+</div>
+<div class="form-field">
+    <label>Search:</label>
+    <input type="search" [(ngModel)]="query" (change)="table.getData()"/>
+</div>
+<app-data-table [url]="url" [query]="query" #table>
+
+</app-data-table>
